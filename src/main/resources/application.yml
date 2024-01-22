@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ddd-demo
+    username:
+    password:
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    show-sql: false
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
+
+app:
+  outbox:
+    cron: "*/15 * * * * *"
+
+logging:
+  level:
+    pl.bpd.ddd: debug

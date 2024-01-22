@@ -1,0 +1,19 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    url: jdbc:tc:postgresql:///testdb?user=postgres&password=password
+    username: postgres
+    password: password
+    driverClassName: org.testcontainers.jdbc.ContainerDatabaseDriver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+
+app:
+  outbox:
+    cron: "-"
