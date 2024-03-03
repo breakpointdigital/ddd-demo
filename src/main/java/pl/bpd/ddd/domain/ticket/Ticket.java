@@ -51,11 +51,11 @@ public class Ticket extends DomainEntity {
     @JoinColumn(name = "ticket_id")
     private List<ChecklistItem> checklist;
     /*
-    A bit too long tip:
-    In PostgreSQL, Instant (and OffsetDateTime) is mapped to column type "timestamp(6) with time zone".
+    A bit too long protip:
+    In PostgreSQL, Instant (and OffsetDateTime) is mapped to a column type "timestamp(6) with time zone".
     Under the hood, Instant keeps a datetime in the UTC timezone as a number of epoch-seconds and number of nanoseconds of a second.
     It may be a bit misleading at first glance, but in fact PostgreSQL doesn't have any date(time) type that stores a timezone:
-    - timestamp with time zone (or psql-specific timestampz) - number of microseconds in the UTC timezone
+    - timestamp with time zone (or psql-specific timestamptz) - number of microseconds in the UTC timezone
     - timestamp without time zone (or just timestamp) - number of microseconds with an undefined timezone
 
     To manually insert a datetime into column, we need to use a specific format, e.g. '2023-12-10 12:43:00'.
@@ -68,9 +68,6 @@ public class Ticket extends DomainEntity {
      */
     private Instant createdDate;
     private Instant updatedDate;
-    // Downside of using the same class for DB entity and domain entity. Deleted property is not a part of
-    // the domain model, but there is no another place to put it.
-    //private boolean deleted;
 
     public void changeStatus(TicketStatus newStatus, Member editor) {
         if (status.isClosed()) {
